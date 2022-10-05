@@ -19,8 +19,7 @@ def knapsack(capacity, weight, now=[]):
         sums.append(cur_sum)
     for i in range(len(weight)):
         n = weight[i]
-        remaining = weight[i+1:]
-        knapsack(capacity, remaining, now+[n])
+        knapsack(capacity, weight[i+1:], now+[n])
 
 
 knapsack(capacity, weight)
