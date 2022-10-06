@@ -1,26 +1,26 @@
 import argparse
 
+
 parser = argparse.ArgumentParser()
 
 parser.add_argument("-W", type=int)
-parser.add_argument("-w", type=int, nargs="+")
+parser.add_argument("-w", nargs='+', type=int)
 
-lab = parser.parse_args()
-
-capacity = lab.W
-weight = lab.w
-
-sums = []
+args = parser.parse_args()
 
 
-def knapsack(capacity, weight, now=[]):
-    cur_sum = sum(now)
-    if cur_sum <= capacity:
-        sums.append(cur_sum)
-    for i in range(len(weight)):
-        n = weight[i]
-        knapsack(capacity, weight[i+1:], now+[n])
+def solution(W, w):
+    bars = len(w)
+    capacity = {}
+    for c in range(W+1):
+        capacity[(0, c)] = 0
+    for i in range(1, bars+1):
+        for j in range(W+1):
+            if w[i-1] <= j:
+                capacity[(i, j)] = max(capacity[(i-1, j)], w[i-1] + capacity[(i-1, j-w[i-1])])
+            else:
+                capacity[(i, j)] = capacity[(i-1, j)]
+    return capacity[(bars, W)]
 
 
-knapsack(capacity, weight)
-print(max(sums))
+print(solution(args.W, args.w))
