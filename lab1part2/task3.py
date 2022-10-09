@@ -23,11 +23,11 @@ class Order:
             summary = summary + self.products[i].price
         return summary
 
-terorist = Customer('Sample', 'User', 'Userovich', 'HIS NUMBER')
+kpi_student = Customer('Sample', 'User', 'Userovich', 'HIS NUMBER')
 himars = Product(350000, 'Really good thing', [22, 64, 27])
 atacms = Product(15000, 'Ammo for himars', [1, 3, 3])
 stinger = Product(3000, 'Cheap but effective', [3, 5, 12])
 
 
-new_order = Order(terorist, [himars, atacms, stinger])
+new_order = Order(kpi_student, [himars, atacms, stinger])
 print(new_order.cacl())
