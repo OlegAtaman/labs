@@ -23,27 +23,40 @@ class Customer:
 class Order:
     def __init__(self, customer, products):
         self.cust = customer
-        self.products = products
-        self.number = len(products)
+        self.products = {}
+        for product in products:
+            try:
+                self.products[product] += 1
+            except KeyError:
+                self.products[product] = 1
 
     def add(self, product):
         if type(product) == Product:
-            self.products.append(product)
-            self.number += 1
+            try:
+                self.products[product] += 1
+            except KeyError:
+                self.products[product] = 1
         else:
             raise TypeError("You can add only products")
 
     def delete(self, product):
         if product in self.products:
-            self.products.remove(product)
-            self.number -= 1
+            self.products[product] -= 1
+            if self.products[product] == 0:
+                del self.products[product]
         else:
             raise Exception("There is not such product")
 
+    def get_num(self):
+        out = ''
+        for k, v in self.products.items():
+            out += f'{k} - {v}\n'
+        return out
+
     def cacl(self):
         summary = 0
-        for i in range(len(self.products)):
-            summary = summary + self.products[i].price
+        for p, c in self.products.items():
+            summary = summary + p.price * c
         return summary
 
 
@@ -56,5 +69,8 @@ fv103 = Product('FV-103 Spartan', 100000, 'Better than BMP', [10, 22, 5])
 
 new_order = Order(avg_kpi_student, [himars, atacms, stinger])
 new_order.add(fv103)
+new_order.add(rpg7)
+new_order.add(rpg7)
 new_order.delete(himars)
+print(new_order.get_num())
 print(new_order.cacl())
