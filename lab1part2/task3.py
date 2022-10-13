@@ -24,7 +24,7 @@ class Order:
     def __init__(self, customer, products):
         self.cust = customer
         self.products = products
-        self.number = 0
+        self.number = len(products)
 
     def add(self, product):
         if type(product) == Product:
