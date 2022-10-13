@@ -24,7 +24,7 @@ class Order:
     def __init__(self, customer, products):
         self.cust = customer
         self.products = products
-        self.number = 0
+        self.number = len(products)
 
     def add(self, product):
         if type(product) == Product:
@@ -39,6 +39,9 @@ class Order:
             self.number -= 1
         else:
             raise Exception("There is not such product")
+
+    def get_num(self):
+        return 'Number of products in order is ' + str(self.number)
 
     def cacl(self):
         summary = 0
@@ -56,5 +59,7 @@ fv103 = Product('FV-103 Spartan', 100000, 'Better than BMP', [10, 22, 5])
 
 new_order = Order(avg_kpi_student, [himars, atacms, stinger])
 new_order.add(fv103)
+new_order.add(rpg7)
 new_order.delete(himars)
+print(new_order.get_num())
 print(new_order.cacl())
